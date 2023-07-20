@@ -16,6 +16,7 @@ function NewCategory({ addCategory }) {
         })
         .then(r => r.json())
         .then(category => addCategory(category))
+        setName('')
     }
 
     return (

@@ -7,18 +7,18 @@ function App() {
   const [tasks, setTasks] = useState([])
   const [categories, setCategories] = useState([])
 
-  useEffect(() => {
-    Promise.all([
-      fetch('http://localhost:9292/tasks'),
-      fetch('http://localhost:9292/categories'),
-    ])
-      .then(([resTasks, resCategories]) => 
-        Promise.all([resTasks.json(), resCategories.json()])
-      )
-      .then(([dataTasks, dataCategories]) => {
-        setTasks(dataTasks);
-        setCategories(dataCategories);
-      });
+  useEffect(() => { 
+      Promise.all([
+        fetch('http://localhost:9292/tasks'),
+        fetch('http://localhost:9292/categories'),
+      ])
+        .then(([resTasks, resCategories]) => 
+          Promise.all([resTasks.json(), resCategories.json()])
+        )
+        .then(([dataTasks, dataCategories]) => {
+          setTasks(dataTasks);
+          setCategories(dataCategories);
+        });
   }, []);
 
   function handleDarkModeClick() {
@@ -65,13 +65,13 @@ function App() {
       <Header 
         isDarkMode={isDarkMode} 
         onDarkModeClick={handleDarkModeClick} />
-      <ToDoList 
+      {categories.length && <ToDoList 
         tasks={tasks}
         categories={categories}
         editTaskWords={editTaskWords} 
         addCategory={addCategory} 
         removeTask={removeTask} 
-        onItemFormSubmit={handleSubmit} />
+        onItemFormSubmit={handleSubmit} />}
     </div>
   );
 }

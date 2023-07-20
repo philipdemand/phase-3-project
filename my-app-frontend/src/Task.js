@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import EditTask  from './EditTask'
+import EditTask from './EditTask'
 
 function Task({ task, editTaskWords, removeTask, categories }) {
 
-  const {name, id, category_id} = task
+  const { name, id, category_id } = task
 
   const [isClicked, setIsClicked] = useState(false)
 
@@ -32,19 +32,19 @@ function Task({ task, editTaskWords, removeTask, categories }) {
 
   return (
     <div>
-    <li>
-      <span>{name} <img onClick={handleEditClick} src="https://img.icons8.com/?size=512&id=8186&format=png" alt="edit" width="20" height="20"></img></span>
-      <span className="category">{foundItem.name}</span>
-      <button
-        className="add"
-        onClick={handleRemoveClick}
-      >
-        Remove Task
-      </button>
-    </li>
-    <li>
-      {isClicked ? <EditTask id={id} editTaskWords={editTaskWords} setIsClicked={setIsClicked}/> : null}
-    </li>
+      <li>
+        <span>{name} <img onClick={handleEditClick} src="https://img.icons8.com/?size=512&id=8186&format=png" alt="edit" width="20" height="20"></img></span>
+        <span className="category">{foundItem?.name}</span>
+        <button
+          className="add"
+          onClick={handleRemoveClick}
+        >
+          Remove Task
+        </button>
+      </li>
+      <li>
+        {isClicked ? <EditTask id={id} editTaskWords={editTaskWords} setIsClicked={setIsClicked} /> : null}
+      </li>
     </div>
   );
 }

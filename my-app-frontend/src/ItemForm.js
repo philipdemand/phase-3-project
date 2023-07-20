@@ -6,27 +6,31 @@ function ItemForm({onItemFormSubmit, categories }) {
 
   const foundItem = categories.find(category => category.name === currentCat)
 
-  console.log(foundItem)
-
   const handleNewItem = (e) => {
     e.preventDefault();
-    let newItem = {
+    const newItem = {
       name: name,
-      category_id: currentCat.id, 
+      category_id: foundItem?.id,
       completed: false
     } 
-  
-  // fetch("http://localhost:9292/tasks", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newItem),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((newObj) => {
-  //       onItemFormSubmit(newObj);
-  //     });
+    
+  try {
+
+    fetch("http://localhost:9292/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newItem),
+      })
+        .then((r) => r.json())
+        .then((newObj) => {
+          onItemFormSubmit(newObj);
+        });
+  }
+  catch(e) {
+    console.warn(e)
+  }
  }
 
   return (
