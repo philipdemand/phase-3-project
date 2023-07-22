@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-function ItemForm({onItemFormSubmit, categories }) {
-  const [name, setName] = useState ('')
+function ItemForm({ onItemFormSubmit, categories }) {
+  const [name, setName] = useState('')
   const [currentCat, setCurrentCat] = useState('Maintenance')
 
   const foundItem = categories.find(category => category.name === currentCat)
@@ -12,11 +12,11 @@ function ItemForm({onItemFormSubmit, categories }) {
       name: name,
       category_id: foundItem?.id,
       completed: false
-    } 
-    
-  try {
+    }
 
-    fetch("http://localhost:9292/tasks", {
+    try {
+
+      fetch("http://localhost:9292/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,11 +27,12 @@ function ItemForm({onItemFormSubmit, categories }) {
         .then((newObj) => {
           onItemFormSubmit(newObj);
         });
+        setName('')
+    }
+    catch (e) {
+      console.warn(e)
+    }
   }
-  catch(e) {
-    console.warn(e)
-  }
- }
 
   return (
     <form className="NewItem" onSubmit={handleNewItem}>
